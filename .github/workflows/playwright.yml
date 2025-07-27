@@ -16,7 +16,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps --force
     - name: Run Playwright tests
-      run: npm run insideDocker
+      run: npm run smoke
       env:
         PASSWORD: ${{ secrets.PASSWORD }}
     - uses: actions/upload-artifact@v4

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { PageManager } from "../page-objects/pagemanager";
 import { faker } from "@faker-js/faker";
+import { argosScreenshot } from "@argos-ci/playwright";
 
 test.beforeEach(async ({ page }) => {
     await page.goto("/");
@@ -28,6 +29,7 @@ test.describe("running test", async () => {
         const randomEmail = `${randomFullName.replace(" ", "")}${faker.number.int(1000)}@test.com`
         const pm = new PageManager(page);
         await pm.navigateTo().fromLayoutsPage();
+        await argosScreenshot(page, "From Layout Page");
         await pm.fromLayout().submitTheGrid(randomEmail, process.env.PASSWORD, "Option 1")
         await page.screenshot({ "path": "screenshots/fromLayoutPage.png" }
         )
@@ -35,6 +37,7 @@ test.describe("running test", async () => {
         // console.log(buffer.toString('base64'));
         await pm.fromLayout().fillInlineFrom(randomFullName, randomEmail, true)
         await page.locator("nb-card", { hasText: "Inline form" }).screenshot({ "path": "screenshots/inlineForm.png" })
+        await argosScreenshot(page, "From Layout Fill");
     });
 
     test.skip("Select Dates", async ({ page }, testInfo) => {

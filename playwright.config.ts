@@ -1,4 +1,4 @@
-import { EyesFixture } from '@applitools/eyes-playwright/fixture';
+import { EyesFixture } from "@applitools/eyes-playwright/fixture";
 import { defineConfig, devices } from "@playwright/test";
 import "dotenv/config";
 
@@ -14,15 +14,27 @@ export default defineConfig<EyesFixture>({
     ["junit", { outputFile: "test-results/junit-report.xml" }],
     ["html", { open: "never" }],
     ["allure-playwright", { outputFolder: "allure-results", detail: true }],
+    process.env.CI ? ["dot"] : ["list"],
+    // Add Argos reporter.
+    [ "@argos-ci/playwright/reporter",
+      {
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+
+        // Set your Argos token (required if not using GitHub Actions).
+        // token: "<YOUR-ARGOS-TOKEN>",
+      },
+    ],
   ],
   use: {
     /* Configuration for Eyes VisualAI */
     eyesConfig: {
       /* The following and other configuration parameters are documented at: https://applitools.com/tutorials/playwright/api/overview */
-      apiKey: 'fnM9bCDWUz8108dTQe98aG7W2L1k9ueN84A4Zo2OweZ0lc110', // alternatively, set this via environment variable APPLITOOLS_API_KEY
+      apiKey: "fnM9bCDWUz8108dTQe98aG7W2L1k9ueN84A4Zo2OweZ0lc110", // alternatively, set this via environment variable APPLITOOLS_API_KEY
       // serverUrl: 'https://eyes.applitools.com',
     },
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
     baseURL:
       process.env.DEV === "1"
         ? "http://localhost:4200/"
