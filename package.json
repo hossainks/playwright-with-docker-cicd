@@ -17,6 +17,7 @@
     "pageObjects": "npx playwright test tests/usePageObjects.spec.js --ui",
     "retry": "npx playwright test tests/usePageObjects.spec.js --headed",
     "smoke": "DEV=1 npx playwright test --project=chromium --grep @smoke --headed",
+    "smokeci": "DEV=1 npx playwright test --project=chromium --grep @smoke",
     "regression": "DEV=1 npx playwright test --project=chromium --grep @regression --headed",
     "smokeRegression": "DEV=1 npx playwright test --project=chromium --grep '@smoke|@regression' --headed",
     "mobile": "DEV=1 npx playwright test --project=mobile --headed",
