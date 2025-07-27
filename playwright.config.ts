@@ -4,7 +4,6 @@ import "dotenv/config";
 
 export default defineConfig<EyesFixture>({
   testDir: "./tests",
-  /* Run tests in files in parallel */
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -23,7 +22,6 @@ export default defineConfig<EyesFixture>({
       apiKey: 'fnM9bCDWUz8108dTQe98aG7W2L1k9ueN84A4Zo2OweZ0lc110', // alternatively, set this via environment variable APPLITOOLS_API_KEY
       // serverUrl: 'https://eyes.applitools.com',
     },
-
     trace: "on-first-retry",
     baseURL:
       process.env.DEV === "1"
@@ -45,6 +43,7 @@ export default defineConfig<EyesFixture>({
   webServer: {
     command: "npm run start",
     url: "http://localhost:4200",
+    timeout: 180 * 1000,
     // reuseExistingServer: !process.env.CI,
   },
 });

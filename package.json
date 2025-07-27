@@ -8,7 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 4200",
     "test": "npx playwright test --project=chromium --headed",
     "autowait": "npx playwright test tests/autoWaiting.spec.js --headed",
     "autowaitui": "npx playwright test tests/autoWaiting.spec.js --ui",
@@ -21,7 +21,8 @@
     "smokeRegression": "DEV=1 npx playwright test --project=chromium --grep '@smoke|@regression' --headed",
     "mobile": "DEV=1 npx playwright test --project=mobile --headed",
     "desktopMobile": "DEV=1 npx playwright test tests/mobile.spec.js --project=chromium --headed",
-    "allureReport": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report"
+    "allureReport": "allure generate ./allure-results -o ./allure-report --clean && allure open ./allure-report",
+    "insideDocker": "DEV=1 npx playwright test --project=chromium --grep '@smoke|@regression'"
   },
   "overrides": {
     "stylus": "github:stylus/stylus#0.54.5"
